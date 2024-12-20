@@ -123,6 +123,33 @@ public class ProductDaoImpl implements ProductDao {
 
     @Override
     public List<Product> search(String text) {
-        return null;
+        String query = "SElECT * FROM products Where name LIKE ?";
+        List<Product> products = new ArrayList<Product>();
+
+        System.out.println("query called");
+
+        System.out.println(query+" "+ text);
+
+        try (Connection connection = MySQLConnection.getConnection();
+             PreparedStatement ps = connection.prepareStatement(query)) {
+
+            ps.setString(1,"%"+text+"%");
+
+            ResultSet resultSet = ps.executeQuery();
+
+            while (resultSet.next()) {
+                int id = resultSet.getInt("id");
+                String name = resultSet.getString("name");
+                Double price = resultSet.getDouble("price");
+                int quantity = resultSet.getInt("quantity");
+
+                products.add(new Product(id,name,quantity,price));
+            }
+            return products;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

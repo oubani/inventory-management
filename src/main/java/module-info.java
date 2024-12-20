@@ -14,4 +14,6 @@ module org.example.inventory {
     opens org.example.inventory.server to javafx.fxml;
 
     opens org.example.inventory.server.models to javafx.base;
+
+    
 }

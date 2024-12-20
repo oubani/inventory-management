@@ -77,9 +77,18 @@ public class HelloController {
             private final Button editButton = new Button("Edit");
             private final Button deleteButton = new Button("Delete");
 
+// In your initialization method or where you set up the buttons
+
+            // If you're using an HBox to contain both buttons
+
             {
+                HBox actionButtonContainer = new HBox(editButton, deleteButton);
+                actionButtonContainer.getStyleClass().add("action-button-container");
                 editButton.setOnAction(event -> handleEdit(getTableRow().getItem()));
                 deleteButton.setOnAction(event -> handleDelete(getTableRow().getItem()));
+
+                editButton.getStyleClass().addAll("action-button", "edit-button");
+                deleteButton.getStyleClass().addAll("action-button", "delete-button");
             }
 
             @Override
@@ -188,6 +197,10 @@ public class HelloController {
         String searchText = search.getText();
 
         System.out.println("Searching for: " + searchText);
+
+        List<Product> products = productDao.search(searchText);
+
+        productsList.setAll(products);
 
         // You can implement searching logic here, like filtering products by name
         // For now, just printing the search query.

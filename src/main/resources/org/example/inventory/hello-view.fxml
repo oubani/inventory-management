@@ -3,27 +3,25 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.GridPane?>
-
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TableColumn?>
-<?import org.controlsfx.control.tableview2.TableColumn2?>
-<VBox spacing="5.0" xmlns:fx="http://javafx.com/fxml"
 
-      fx:controller="org.example.inventory.client.HelloController">
-    <padding
-    >
-        <Insets  bottom="10.0" left="20.0" right="20.0" top="10.0" />
+<?import javafx.scene.layout.HBox?>
+<VBox spacing="5.0" xmlns:fx="http://javafx.com/fxml"
+      fx:controller="org.example.inventory.client.HelloController"
+      styleClass="vbox">
+    <padding>
+        <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
     </padding>
-    <Label fx:id="warningText" style="-fx-color:#ff0000;" />
-    <GridPane hgap="10" vgap="10"  >
-        <TextField fx:id="productId"  layoutX="100" GridPane.columnIndex="0" GridPane.rowIndex="0" prefWidth="395" visible="false" />
+    <Label fx:id="warningText" />
+    <GridPane hgap="10" vgap="10">
+        <TextField fx:id="productId" layoutX="100" GridPane.columnIndex="0" GridPane.rowIndex="0" prefWidth="395" visible="false" />
         <Label text="Product Name:" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-        <TextField fx:id="productName" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <TextField fx:id="productName" GridPane.columnIndex="1" GridPane.rowIndex="0" prefWidth="395" />
 
         <Label text="Product Quantity:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
         <TextField fx:id="productQuantity" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -31,22 +29,23 @@
         <Label text="Product Price:" GridPane.columnIndex="0" GridPane.rowIndex="2" />
         <TextField fx:id="productPrice" GridPane.columnIndex="1" GridPane.rowIndex="2" />
     </GridPane>
-    <Button fx:id="productAddButton" onAction="#onCreateProductButton" text="Add Product"/>
-    <Button fx:id="clearFormButton" text="clear Form" onAction="#onClearForm" visible="false" />
+    <HBox spacing="10">
+        <Button fx:id="productAddButton" onAction="#onCreateProductButton" text="Add Product"/>
+        <Button fx:id="clearFormButton" text="Clear Form" onAction="#onClearForm" visible="false" />
+    </HBox>
     <Separator orientation="HORIZONTAL" />
-    <GridPane hgap="10" vgap="25" >
+    <GridPane hgap="10" vgap="25">
         <TextField fx:id="search" layoutX="100" GridPane.columnIndex="0" GridPane.rowIndex="0" prefWidth="395" />
-        <Button text="Search" onAction="#onSearchProducts" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Button text="Search" onAction="#onSearchProducts" styleClass="search" GridPane.columnIndex="1" GridPane.rowIndex="0" />
     </GridPane>
 
-    <TableView fx:id="tableView" >
+    <TableView fx:id="tableView">
         <columns>
-            <TableColumn fx:id="columnId" text="Product Id"  />
-            <TableColumn fx:id="columnName" text="Name"  />
+            <TableColumn fx:id="columnId" text="Product Id" />
+            <TableColumn fx:id="columnName" text="Name" />
             <TableColumn fx:id="columnPrice" text="Price"/>
             <TableColumn fx:id="columnQuantity" text="Quantity"/>
             <TableColumn fx:id="columnAction" text="Action"/>
         </columns>
     </TableView>
-
 </VBox>
