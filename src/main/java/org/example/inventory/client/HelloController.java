@@ -72,7 +72,6 @@ public class HelloController {
         columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         columnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
-        // Set up the action column with Edit and Delete buttons
         columnAction.setCellFactory(param -> new TableCell<Product, Void>() {
             private final Button editButton = new Button("Edit");
             private final Button deleteButton = new Button("Delete");
@@ -202,8 +201,6 @@ public class HelloController {
 
         productsList.setAll(products);
 
-        // You can implement searching logic here, like filtering products by name
-        // For now, just printing the search query.
     }
 
     @FXML
