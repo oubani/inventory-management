@@ -22,6 +22,8 @@ public class HelloController {
     @FXML
     private TableColumn<Product, String> columnName;
     @FXML
+    private TableColumn<Product, String> columnCategory;
+    @FXML
     private TableColumn<Product, Integer> columnId;
     @FXML
     private TableColumn<Product, Double> columnPrice;
@@ -38,6 +40,8 @@ public class HelloController {
     // Product input fields
     @FXML
     private TextField productName;
+    @FXML
+    private TextField productCategory;
     @FXML
     private TextField productPrice;
     @FXML
@@ -69,6 +73,7 @@ public class HelloController {
         // Set up TableView columns
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnName.setCellValueFactory(new PropertyValueFactory<>("name"));
+        columnCategory.setCellValueFactory(new PropertyValueFactory<>("category"));
         columnPrice.setCellValueFactory(new PropertyValueFactory<>("price"));
         columnQuantity.setCellValueFactory(new PropertyValueFactory<>("quantity"));
 
@@ -111,6 +116,7 @@ public class HelloController {
 
         // Set the form fields with the product data
         productName.setText(product.getName());
+        productCategory.setText(product.getCategory());
         productPrice.setText(String.valueOf(product.getPrice()));
         productQuantity.setText(String.valueOf(product.getQuantity()));
         productId.setText(String.valueOf(product.getId()));  // Maybe disable this field for editing
@@ -136,6 +142,7 @@ public class HelloController {
     @FXML
     protected void onCreateProductButton(ActionEvent event) {
         String productNameText = productName.getText();
+        String productCategoryText = productCategory.getText();
         String productPriceText = productPrice.getText();
         String productQuantityText = productQuantity.getText();
         String productIdText = productId.getText();
@@ -143,6 +150,10 @@ public class HelloController {
         System.out.println("Product id is: " + productIdText);
 
         if (productNameText.isEmpty()) {
+            warningText.setText("Product name cannot be empty");
+            return;
+        }
+        if (productCategoryText.isEmpty()) {
             warningText.setText("Product name cannot be empty");
             return;
         }
@@ -163,7 +174,7 @@ public class HelloController {
             return;
         }
 
-        Product product = new Product(productNameText, quantity, price);
+        Product product = new Product(productNameText,productCategoryText ,quantity, price);
 
         if (isEdit) {
             product.setId(Integer.parseInt(productIdText)); // Ensure product ID is set for editing
@@ -211,6 +222,7 @@ public class HelloController {
 
     private void clearForm() {
         productName.clear();
+        productCategory.clear();
         productPrice.clear();
         productQuantity.clear();
         productId.clear();

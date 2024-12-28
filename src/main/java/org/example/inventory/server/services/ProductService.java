@@ -1,12 +1,19 @@
 package org.example.inventory.server.services;
 
-import org.example.inventory.server.daos.ProductDao;
-import org.example.inventory.server.database.MySQLConnection;
-import org.example.inventory.server.models.Product;
 
 import java.sql.Connection;
-import java.util.List;
+import java.sql.SQLException;
+
+import org.example.inventory.database.MySQLConnection;
 
 public class ProductService   {
-    Connection c =  MySQLConnection.getConnection();
+    Connection c;
+
+    {
+        try {
+            c = MySQLConnection.getConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

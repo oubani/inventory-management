@@ -1,7 +1,8 @@
 package org.example.inventory.server.implementations;
 
 import org.example.inventory.server.daos.ProductDao;
-import org.example.inventory.server.database.MySQLConnection;
+import org.example.inventory.database.MySQLConnection;
+
 import org.example.inventory.server.models.Product;
 
 import java.sql.*;
@@ -11,14 +12,15 @@ import java.util.List;
 public class ProductDaoImpl implements ProductDao {
     @Override
     public Product save(Product product) {
-        String query = "INSERT INTO products (name, quantity, price) VALUES (?, ?, ?)";
+        String query = "INSERT INTO products (name,category ,quantity, price) VALUES (?,? ,?, ?)";
         try (
                 Connection connection = MySQLConnection.getConnection();
                 PreparedStatement ps = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
 
                 ps.setString(1, product.getName());
-                ps.setInt(2, product.getQuantity());
-                ps.setDouble(3, product.getPrice());
+                ps.setString(2, product.getCategory());
+                ps.setInt(3, product.getQuantity());
+                ps.setDouble(4, product.getPrice());
                 ps.executeUpdate();
 
                 // Get generated ID
@@ -39,14 +41,15 @@ public class ProductDaoImpl implements ProductDao {
     public Product update(Product product) {
         System.out.println("Trying to update product: " + product.getId());
 
-        String query = "UPDATE products SET name = ?, quantity = ?, price = ? WHERE id = ?";
+        String query = "UPDATE products SET name = ?,category=? ,quantity = ?, price = ? WHERE id = ?";
         try (Connection connection = MySQLConnection.getConnection();
              PreparedStatement ps = connection.prepareStatement(query)) {
 
             System.out.println("Setting parameters for update...");
             ps.setString(1, product.getName());
-            ps.setInt(2, product.getQuantity());
-            ps.setDouble(3, product.getPrice());
+            ps.setString(2, product.getCategory());
+            ps.setInt(3, product.getQuantity());
+            ps.setDouble(4, product.getPrice());
             ps.setInt(4, product.getId());
 
             int rowsAffected = ps.executeUpdate();
@@ -108,10 +111,11 @@ public class ProductDaoImpl implements ProductDao {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
+                String category = resultSet.getString("category");
                 Double price = resultSet.getDouble("price");
                 int quantity = resultSet.getInt("quantity");
 
-                products.add(new Product(id,name,quantity,price));
+                products.add(new Product(id,name,category,quantity,price));
             }
 
         } catch (SQLException exception) {
@@ -140,10 +144,11 @@ public class ProductDaoImpl implements ProductDao {
             while (resultSet.next()) {
                 int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
+                String category = resultSet.getString("category");
                 Double price = resultSet.getDouble("price");
                 int quantity = resultSet.getInt("quantity");
 
-                products.add(new Product(id,name,quantity,price));
+                products.add(new Product(id,name,category,quantity,price));
             }
             return products;
 

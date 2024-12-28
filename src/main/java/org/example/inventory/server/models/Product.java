@@ -8,6 +8,8 @@ public class Product {
 
     private String name;
 
+    private String category;
+
     private Integer quantity;
 
     private Double price;
@@ -15,14 +17,16 @@ public class Product {
     public Product() {
     }
 
-    public Product(Integer id, String name, Integer quantity, Double price) {
+    public Product(Integer id, String name, String category, Integer quantity, Double price) {
         this.id = id;
         this.name = name;
+        this.category = category;
         this.quantity = quantity;
         this.price = price;
     }
-    public Product( String name, Integer quantity, Double price) {
+    public Product( String name,String category, Integer quantity, Double price) {
         this.name = name;
+        this.category = category;
         this.quantity = quantity;
         this.price = price;
     }
@@ -82,5 +86,13 @@ public class Product {
                 ", quantity=" + quantity +
                 ", price=" + price +
                 '}';
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }
