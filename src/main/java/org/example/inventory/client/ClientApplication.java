@@ -1,21 +1,21 @@
-package org.example.inventory.server;
+package org.example.inventory.client;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.example.inventory.database.DatabaseInitializer;
+
 
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class ClientApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        DatabaseInitializer.initializeDatabase();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("/org/example/inventory/hello-view.fxml"));
+
+        FXMLLoader fxmlLoader = new FXMLLoader(ClientApplication.class.getResource("/org/example/inventory/hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 550, 750);
         scene.getStylesheets().add(getClass().getResource("/org/example/inventory/styles.css").toExternalForm());
-        stage.setTitle("Hello again!");
+        stage.setTitle("Inventory Management");
         stage.setScene(scene);
         stage.show();
     }

@@ -8,12 +8,23 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
+import org.example.inventory.server.enums.ActionsType;
 import org.example.inventory.server.implementations.ProductDaoImpl;
+import org.example.inventory.server.models.ActionProduct;
 import org.example.inventory.server.models.Product;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.HashMap;
 import java.util.List;
 
 public class HelloController {
+
+    private static final String HOST="localhost";
+    private static final int PORT=3333;
 
     private ProductDaoImpl productDao = new ProductDaoImpl();
 
@@ -81,9 +92,6 @@ public class HelloController {
             private final Button editButton = new Button("Edit");
             private final Button deleteButton = new Button("Delete");
 
-// In your initialization method or where you set up the buttons
-
-            // If you're using an HBox to contain both buttons
 
             {
                 HBox actionButtonContainer = new HBox(editButton, deleteButton);
@@ -129,11 +137,36 @@ public class HelloController {
     private void handleDelete(Product product) {
         System.out.println("Deleting product with id: " + product.getId());
 
-        // Delete the product from the database
-        productDao.remove(product);
+        try(
+                Socket socket = new Socket(HOST, PORT);
+                ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+                ){
 
-        // Remove the product from the ObservableList
-        productsList.remove(product);
+            ActionProduct actionProduct = new ActionProduct(ActionsType.Delete, product);
+
+            output.writeObject(actionProduct);
+
+            System.out.println(" delete response");
+            Boolean response = (Boolean) input.readObject();
+
+            System.out.println(response);
+
+            productsList.remove(product);
+
+//            output.writeObject(actionProduct);
+//                productDao.save(product);
+//            Product response = (Product) input.readObject();
+
+
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+
+//        productsList.remove(product);
 
         warningText.setText("Product deleted successfully");
     }
@@ -147,7 +180,7 @@ public class HelloController {
         String productQuantityText = productQuantity.getText();
         String productIdText = productId.getText();
 
-        System.out.println("Product id is: " + productIdText);
+
 
         if (productNameText.isEmpty()) {
             warningText.setText("Product name cannot be empty");
@@ -174,29 +207,62 @@ public class HelloController {
             return;
         }
 
+        System.out.println("Product id is: " + productIdText);
+
         Product product = new Product(productNameText,productCategoryText ,quantity, price);
+        System.out.println("Called ?");
 
-        if (isEdit) {
-            product.setId(Integer.parseInt(productIdText)); // Ensure product ID is set for editing
-            System.out.println("Trying to update product with ID: " + product.getId());
 
-            // Update the product in the database
-            productDao.update(product);
+        try(
+                Socket socket = new Socket(HOST, PORT);
+                ObjectOutputStream output = new ObjectOutputStream(socket.getOutputStream());
+                ObjectInputStream input = new ObjectInputStream(socket.getInputStream());
+                ) {
 
-            // Find the index of the product in the list and update it
-            int index = productsList.indexOf(product);
-            if (index >= 0) {
-                productsList.set(index, product); // Update the product in the list
+            if (isEdit) {
+                product.setId(Integer.parseInt(productIdText)); // Ensure product ID is set for editing
+                System.out.println("Trying to update product with ID: " + product.getId());
+
+
+//                productDao.update(product);
+                ActionProduct actionProduct = new ActionProduct(ActionsType.Update,product);
+                output.writeObject(actionProduct);
+
+                int index = productsList.indexOf(product);
+                if (index >= 0) {
+                    productsList.set(index, product); // Update the product in the list
+                }
+
+                warningText.setText("Product updated successfully");
+                isEdit = false;
+            } else {
+
+                ActionProduct actionProduct = new ActionProduct(ActionsType.Create,product);
+                System.out.println("create");
+                output.writeObject(actionProduct);
+//                productDao.save(product);
+                Product response = (Product) input.readObject();
+                System.out.println("product added+ response");
+                System.out.println(response);
+                productsList.add(response);
+                warningText.setText("Product added successfully");
             }
+            clearForm();
 
-            warningText.setText("Product updated successfully");
-            isEdit = false;  // Reset edit mode
-        } else {
-            // Save a new product
-            productDao.save(product);
-            productsList.add(product); // Add new product to the list
-            warningText.setText("Product added successfully");
+        } catch (UnknownHostException e) {
+            System.out.println("client 22");
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            System.out.println("client 33");
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            System.out.println("client 44");
+            System.out.println(e.getMessage());
+            throw new RuntimeException(e);
         }
+
 
         clearForm();
     }

@@ -1,9 +1,10 @@
 package org.example.inventory.server.models;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Product {
-
+public class Product implements Serializable {
+    private static final long serialVersionUID = 1L;
     private  Integer id;
 
     private String name;

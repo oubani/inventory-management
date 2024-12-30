@@ -5,18 +5,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2bdbfdd2-d178-4681-9286-2dd8b40ac129" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/inventory/database/DatabaseInitializer.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/inventory/database/data.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/org/example/inventory/database/schema.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/ServerApplication.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/enums/ActionsType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/models/ActionProduct.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/inventory/client/HelloController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/inventory/client/HelloController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/database/MySQLConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/inventory/database/MySQLConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/inventory/client/ClientApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/implementations/ProductDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/implementations/ProductDaoImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/models/Product.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/models/Product.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/services/ProductService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/services/ProductService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/database.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/inventory/server/services/ProductService.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/org/example/inventory/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/org/example/inventory/hello-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -29,6 +27,7 @@
       <list>
         <option value="Interface" />
         <option value="Class" />
+        <option value="Enum" />
       </list>
     </option>
   </component>
@@ -51,17 +50,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.DatabaseInitializer.executor&quot;: &quot;Run&quot;,
-    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.ClientApplication.executor": "Run",
+    "Application.DatabaseInitializer.executor": "Run",
+    "Application.HelloApplication.executor": "Run",
+    "Application.ServerApplication.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/mac/Desktop/Projects/Supmti projects/inventory copy"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/resources/org/example/inventory/database" />

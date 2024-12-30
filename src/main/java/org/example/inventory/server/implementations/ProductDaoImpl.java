@@ -50,7 +50,7 @@ public class ProductDaoImpl implements ProductDao {
             ps.setString(2, product.getCategory());
             ps.setInt(3, product.getQuantity());
             ps.setDouble(4, product.getPrice());
-            ps.setInt(4, product.getId());
+            ps.setInt(5, product.getId());
 
             int rowsAffected = ps.executeUpdate();
             System.out.println("Rows affected: " + rowsAffected);
@@ -98,7 +98,7 @@ public class ProductDaoImpl implements ProductDao {
     @Override
     public List<Product> getAll() {
 
-        String query = "SELECT * FROM products";
+        String query = "SELECT * FROM products ORDER BY id ASC";
          List<Product> products =new ArrayList<Product>();
 
         try {
